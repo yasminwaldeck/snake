@@ -1,0 +1,4 @@
+.idea
+*.xml
+target
+.DS_Store
