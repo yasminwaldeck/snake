@@ -31,7 +31,7 @@ public class Board extends JPanel implements ActionListener {
     */
 
     private boolean inGame = true;
-    private String direction;
+    private String direction = "";
 
     private final int x[] = new int[TOTAL_DOTS];
     private final int y[] = new int[TOTAL_DOTS];
