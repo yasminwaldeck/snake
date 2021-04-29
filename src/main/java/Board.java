@@ -31,7 +31,7 @@ public class Board extends JPanel implements ActionListener {
     */
 
     private boolean inGame = true;
-    private String direction = "";
+    private String direction = "right";
 
     private final int x[] = new int[TOTAL_DOTS];
     private final int y[] = new int[TOTAL_DOTS];
@@ -42,7 +42,6 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void initBoard(){
-
 
         setBackground(Color.darkGray);
         setFocusable(true);
@@ -68,7 +67,10 @@ public class Board extends JPanel implements ActionListener {
         head = iih.getImage();
     }
 
+
+
     private void initGame(){
+
         dots = 3;
 
         for (int z = dots; z > 0; z--) {
@@ -76,10 +78,10 @@ public class Board extends JPanel implements ActionListener {
             y[z] = y[(z - 1)];
         }
 
+        locateFood();
         timer = new Timer(DELAY, this);
         timer.start();
 
-        locateFood();
     }
 
     private void locateFood(){
@@ -130,9 +132,9 @@ public class Board extends JPanel implements ActionListener {
 
     private void checkCollision(){
 
-        for (int z = dots; z > 0; z--) {
+        for (int i = dots; i > 0; i--) {
 
-            if ((z > 4) && (x[0] == x[z]) && (y[0] == y[z])) {
+            if ((i > 4) && (x[0] == x[i]) && (y[0] == y[i])) {
                 inGame = false;
             }
         }
@@ -161,9 +163,10 @@ public class Board extends JPanel implements ActionListener {
 
     @Override
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
 
+        super.paintComponent(g);
         doDrawing(g);
+
     }
 
     private void doDrawing(Graphics g){
