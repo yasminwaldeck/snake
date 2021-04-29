@@ -30,6 +30,7 @@ public class Board extends JPanel implements ActionListener {
     private boolean downDirection = false;
     */
 
+    private boolean inGame = true;
     private String direction;
 
     private final int x[] = new int[TOTAL_DOTS];
@@ -91,6 +92,40 @@ public class Board extends JPanel implements ActionListener {
 
     }
 
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        doDrawing(g);
+    }
+
+    private void doDrawing(Graphics g){
+
+        if (inGame) {
+            g.drawImage(food, food_x, food_y, this);
+
+            for (int i = 0; i < dots; i++) {
+                if (i==0){
+                    g.drawImage(head, x[i], y[i], this);
+                } else {
+                    g.drawImage(ball, x[i], y[i], this);
+                }
+            }
+            Toolkit.getDefaultToolkit().sync();
+        } else {
+            gameOver(g);
+        }
+    }
+
+    private void gameOver(Graphics g){
+        String message = "Ooops, game over";
+        Font messageFont = new Font("Arial", Font.BOLD, 20);
+        FontMetrics metr = getFontMetrics(messageFont);
+
+        g.setColor(Color.red);
+        g.setFont(messageFont);
+        g.drawString(message, (BACKGROUND_WIDTH - metr.stringWidth(message)) / 2, BACKGROUND_HEIGHT / 2);;
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
