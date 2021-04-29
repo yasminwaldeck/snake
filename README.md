@@ -9,3 +9,6 @@ S -> Down
 A -> Left
 
 D -> Right
+
+
+Enjoy! :D

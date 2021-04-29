@@ -12,16 +12,15 @@ public class Board extends JPanel implements ActionListener {
     private final int BACKGROUND_HEIGHT = 450;
     private final int RAND_POS = 29;
 
-    private int DOT_SIZE = 15;
-    private int TOTAL_DOTS = (450*450)/(15*15);
+    private final int DOT_SIZE = 15;
+    private final int TOTAL_DOTS = (450*450)/(15*15);
     private int dots;
-
 
     private int food_x;
     private int food_y;
 
     private Timer timer;
-    private int DELAY = 100;
+    private final int DELAY = 100;
 
     /*
     private boolean leftDirection = false;
@@ -57,13 +56,13 @@ public class Board extends JPanel implements ActionListener {
 
     private void loadImages() {
 
-        ImageIcon iid = new ImageIcon("src/resources/dot.png");
+        ImageIcon iid = new ImageIcon("src/main/resources/ball.png");
         ball = iid.getImage();
 
-        ImageIcon iia = new ImageIcon("src/resources/food.png");
+        ImageIcon iia = new ImageIcon("src/main/resources/food.png");
         food = iia.getImage();
 
-        ImageIcon iih = new ImageIcon("src/resources/head.png");
+        ImageIcon iih = new ImageIcon("src/main/resources/head.png");
         head = iih.getImage();
     }
 
@@ -73,9 +72,9 @@ public class Board extends JPanel implements ActionListener {
 
         dots = 3;
 
-        for (int z = dots; z > 0; z--) {
-            x[z] = x[(z - 1)];
-            y[z] = y[(z - 1)];
+        for (int i = dots; i > 0; i--) {
+            x[i] = x[(i - 1)];
+            y[i] = y[(i - 1)];
         }
 
         locateFood();
@@ -96,9 +95,9 @@ public class Board extends JPanel implements ActionListener {
 
     private void move() {
 
-        for (int z = dots; z > 0; z--) {
-            x[z] = x[(z - 1)];
-            y[z] = y[(z - 1)];
+        for (int i = dots; i > 0; i--) {
+            x[i] = x[(i - 1)];
+            y[i] = y[(i - 1)];
         }
 
         if (direction.equals("left")) {
@@ -182,6 +181,7 @@ public class Board extends JPanel implements ActionListener {
                 }
             }
             Toolkit.getDefaultToolkit().sync();
+
         } else {
             gameOver(g);
         }
@@ -213,61 +213,60 @@ public class Board extends JPanel implements ActionListener {
 
     private class WSADAdapter implements KeyListener {
 
+            @Override
+            public void keyTyped(KeyEvent e) {
 
-    @Override
-    public void keyTyped(KeyEvent e) {
+            }
 
-    }
+            @Override
+            public void keyPressed(KeyEvent e) {
 
-    @Override
-    public void keyPressed(KeyEvent e) {
+                int key = e.getKeyCode();
 
-        int key = e.getKeyCode();
+                if ((key == KeyEvent.VK_A) && (!direction.equals("right"))) {
+                    direction = "left";
+                    /*
+                    leftDirection = true;
+                    upDirection = false;
+                    downDirection = false;
+                    */
 
-        if ((key == KeyEvent.VK_A) && (!direction.equals("right"))) {
-            direction = "left";
-            /*
-            leftDirection = true;
-            upDirection = false;
-            downDirection = false;
-            */
+                }
 
+                if ((key == KeyEvent.VK_D) && (!direction.equals("left"))) {
+                    direction = "right";
+                    /*
+                    rightDirection = true;
+                    upDirection = false;
+                    downDirection = false;
+                    */
+                }
+
+                if ((key == KeyEvent.VK_W) && (!direction.equals("down"))) {
+                    direction = "up";
+                    /*
+                    upDirection = true;
+                    rightDirection = false;
+                    leftDirection = false;
+                     */
+                }
+
+                if ((key == KeyEvent.VK_S) && (!direction.equals("up"))) {
+                    direction = "down";
+                    /*
+                    downDirection = true;
+                    rightDirection = false;
+                    leftDirection = false;
+
+                     */
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
         }
-
-        if ((key == KeyEvent.VK_D) && (!direction.equals("left"))) {
-            direction = "right";
-            /*
-            rightDirection = true;
-            upDirection = false;
-            downDirection = false;
-            */
-        }
-
-        if ((key == KeyEvent.VK_W) && (!direction.equals("down"))) {
-            direction = "up";
-            /*
-            upDirection = true;
-            rightDirection = false;
-            leftDirection = false;
-             */
-        }
-
-        if ((key == KeyEvent.VK_S) && (!direction.equals("up"))) {
-            direction = "down";
-            /*
-            downDirection = true;
-            rightDirection = false;
-            leftDirection = false;
-
-             */
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
-}
 }
 
 
