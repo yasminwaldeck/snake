@@ -79,16 +79,83 @@ public class Board extends JPanel implements ActionListener {
         timer = new Timer(DELAY, this);
         timer.start();
 
-        locateApple();
+        locateFood();
     }
 
-    private void locateApple(){
+    private void locateFood(){
 
         int r = (int) (Math.random() * RAND_POS);
         food_x = ((r * DOT_SIZE));
 
         r = (int) (Math.random() * RAND_POS);
         food_y = ((r * DOT_SIZE));
+
+    }
+
+    private void move() {
+
+        for (int z = dots; z > 0; z--) {
+            x[z] = x[(z - 1)];
+            y[z] = y[(z - 1)];
+        }
+
+        if (direction.equals("left")) {
+            x[0] -= DOT_SIZE;
+        }
+
+        if (direction.equals("right")) {
+            x[0] += DOT_SIZE;
+        }
+
+        if (direction.equals("up")) {
+            y[0] -= DOT_SIZE;
+        }
+
+        if (direction.equals("down")) {
+            y[0] += DOT_SIZE;
+        }
+    }
+
+
+    private void checkFood(){
+
+
+        if ((x[0] == food_x) && (y[0] == food_y)) {
+
+            dots++;
+            locateFood();
+        }
+
+    }
+
+    private void checkCollision(){
+
+        for (int z = dots; z > 0; z--) {
+
+            if ((z > 4) && (x[0] == x[z]) && (y[0] == y[z])) {
+                inGame = false;
+            }
+        }
+
+        if (y[0] >= BACKGROUND_HEIGHT) {
+            inGame = false;
+        }
+
+        if (y[0] < 0) {
+            inGame = false;
+        }
+
+        if (x[0] >= BACKGROUND_WIDTH) {
+            inGame = false;
+        }
+
+        if (x[0] < 0) {
+            inGame = false;
+        }
+
+        if (!inGame) {
+            timer.stop();
+        }
 
     }
 
@@ -129,6 +196,15 @@ public class Board extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        if (inGame) {
+
+            checkFood();
+            checkCollision();
+            move();
+        }
+
+        repaint();
 
     }
 
