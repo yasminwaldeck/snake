@@ -22,13 +22,6 @@ public class Board extends JPanel implements ActionListener {
     private Timer timer;
     private final int DELAY = 100;
 
-    /*
-    private boolean leftDirection = false;
-    private boolean rightDirection = false;
-    private boolean upDirection = false;
-    private boolean downDirection = false;
-    */
-
     private boolean inGame = true;
     private String direction = "right";
 
@@ -225,40 +218,18 @@ public class Board extends JPanel implements ActionListener {
 
                 if ((key == KeyEvent.VK_A) && (!direction.equals("right"))) {
                     direction = "left";
-                    /*
-                    leftDirection = true;
-                    upDirection = false;
-                    downDirection = false;
-                    */
-
                 }
 
                 if ((key == KeyEvent.VK_D) && (!direction.equals("left"))) {
                     direction = "right";
-                    /*
-                    rightDirection = true;
-                    upDirection = false;
-                    downDirection = false;
-                    */
                 }
 
                 if ((key == KeyEvent.VK_W) && (!direction.equals("down"))) {
                     direction = "up";
-                    /*
-                    upDirection = true;
-                    rightDirection = false;
-                    leftDirection = false;
-                     */
                 }
 
                 if ((key == KeyEvent.VK_S) && (!direction.equals("up"))) {
                     direction = "down";
-                    /*
-                    downDirection = true;
-                    rightDirection = false;
-                    leftDirection = false;
-
-                     */
                 }
             }
 
